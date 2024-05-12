@@ -1,0 +1,75 @@
+//
+//  TableViewCell.swift
+//  Countries
+//
+//  Created by Арсений Варицкий on 10.05.24.
+//
+
+import UIKit
+
+class CountryTableViewCell: UITableViewCell {
+
+    private enum Constants {
+        static var borderColor = { R.color.c283F63() }
+        static var backgroundColor = { R.color.c3E659E() }
+        static var black = { R.color.c000000() }
+        static var white = { R.color.cFEFFFF() }
+        static var poppinsFont = { R.font.poppinsMedium }
+    }
+    
+    lazy var flagImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 12
+        imageView.contentMode = .center
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(resource: Constants.poppinsFont(), size: 16)
+        label.textColor = Constants.white()
+        return label
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with model: CountryModel) {
+        nameLabel.text = model.name
+        flagImageView.image = model.icon
+    }
+    
+    private func setup() {
+        backgroundColor = Constants.backgroundColor()
+        layer.cornerRadius = 20
+        layer.borderWidth = 1.4
+        layer.borderColor = Constants.borderColor()?.cgColor
+        layer.shadowColor = Constants.black()?.cgColor
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 4
+        layer.masksToBounds = false
+        contentView.addSubviews([flagImageView, nameLabel])
+        
+        flagImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(18)
+            $0.height.width.equalTo(24)
+        }
+        
+        nameLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(flagImageView.snp.trailing).offset(10)
+            $0.height.equalTo(22)
+            $0.width.equalToSuperview().dividedBy(0.8)
+        }
+    }
+
+}
