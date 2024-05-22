@@ -17,6 +17,20 @@ class CountryTableViewCell: UITableViewCell {
         static var poppinsFont = { R.font.poppinsMedium }
     }
     
+    private lazy var backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Constants.backgroundColor()
+        view.layer.cornerRadius = 20
+        view.layer.borderWidth = 1.4
+        view.layer.borderColor = Constants.borderColor()?.cgColor
+        view.layer.shadowColor = Constants.black()?.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 4
+        view.layer.masksToBounds = false
+        return view
+    }()
+
     lazy var flagImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 12
@@ -47,16 +61,13 @@ class CountryTableViewCell: UITableViewCell {
     }
     
     private func setup() {
-        backgroundColor = Constants.backgroundColor()
-        layer.cornerRadius = 20
-        layer.borderWidth = 1.4
-        layer.borderColor = Constants.borderColor()?.cgColor
-        layer.shadowColor = Constants.black()?.cgColor
-        layer.shadowOpacity = 0.1
-        layer.shadowOffset = CGSize(width: 0, height: 4)
-        layer.shadowRadius = 4
-        layer.masksToBounds = false
-        contentView.addSubviews([flagImageView, nameLabel])
+        backgroundColor = .clear
+        contentView.addSubviews([backView, flagImageView, nameLabel])
+        
+        backView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalToSuperview().inset(8)
+        }
         
         flagImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()

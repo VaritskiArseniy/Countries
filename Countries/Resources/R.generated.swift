@@ -46,7 +46,7 @@ struct _R {
     let developmentRegion = "en"
   }
 
-  /// This `_R.color` struct is generated, and contains static references to 11 colors.
+  /// This `_R.color` struct is generated, and contains static references to 12 colors.
   struct color {
     let bundle: Foundation.Bundle
 
@@ -55,6 +55,9 @@ struct _R {
 
     /// Color `c000000`.
     var c000000: RswiftResources.ColorResource { .init(name: "c000000", path: [], bundle: bundle) }
+
+    /// Color `c008978`.
+    var c008978: RswiftResources.ColorResource { .init(name: "c008978", path: [], bundle: bundle) }
 
     /// Color `c055EBE`.
     var c055EBE: RswiftResources.ColorResource { .init(name: "c055EBE", path: [], bundle: bundle) }
@@ -84,9 +87,15 @@ struct _R {
     var cFEFFFF: RswiftResources.ColorResource { .init(name: "cFEFFFF", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 7 images.
+  /// This `_R.image` struct is generated, and contains static references to 9 images.
   struct image {
     let bundle: Foundation.Bundle
+
+    /// Image `applyButton`.
+    var applyButton: RswiftResources.ImageResource { .init(name: "applyButton", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `arrowDownImage`.
+    var arrowDownImage: RswiftResources.ImageResource { .init(name: "arrowDownImage", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `arrowImage`.
     var arrowImage: RswiftResources.ImageResource { .init(name: "arrowImage", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

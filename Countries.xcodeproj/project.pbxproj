@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8FE3676360B5DBDAEDB1CE2B /* Pods_Countries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550235D28C3DB32955E2FFB9 /* Pods_Countries.framework */; };
 		AE2C92CF2BEDF434003667BE /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2C92CE2BEDF434003667BE /* CountryTableViewCell.swift */; };
+		AE2CC3762BFE001A00552337 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC3752BFE001A00552337 /* TextFieldType.swift */; };
 		AE31EDB02BE7853E0054FB86 /* VisitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE31EDAF2BE7853E0054FB86 /* VisitButton.swift */; };
 		AE31EDB32BE78F040054FB86 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE31EDB22BE78F040054FB86 /* Poppins-Bold.ttf */; };
 		AE3402862BED0C3C00C3B9A2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3402852BED0C3C00C3B9A2 /* SearchView.swift */; };
@@ -36,12 +37,15 @@
 		AE5867F12BECDC3D00F54295 /* CountriesIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5867F02BECDC3D00F54295 /* CountriesIO.swift */; };
 		AE59A1AB2BE93CAA0027CAE9 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE59A1AA2BE93CAA0027CAE9 /* UIStackView+Extension.swift */; };
 		AE59A1AD2BE94FCA0027CAE9 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE59A1AC2BE94FCA0027CAE9 /* CountryView.swift */; };
+		AE95F68E2BFCD676001F1585 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE95F68D2BFCD676001F1585 /* DateView.swift */; };
+		AEB89E4F2BFE2B53003DF842 /* ApplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB89E4E2BFE2B53003DF842 /* ApplyButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1214D3C46ED9D52A9B5B58F3 /* Pods-Countries.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Countries.debug.xcconfig"; path = "Target Support Files/Pods-Countries/Pods-Countries.debug.xcconfig"; sourceTree = "<group>"; };
 		550235D28C3DB32955E2FFB9 /* Pods_Countries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Countries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2C92CE2BEDF434003667BE /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
+		AE2CC3752BFE001A00552337 /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		AE31EDAF2BE7853E0054FB86 /* VisitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitButton.swift; sourceTree = "<group>"; };
 		AE31EDB22BE78F040054FB86 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		AE3402852BED0C3C00C3B9A2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		AE5867F02BECDC3D00F54295 /* CountriesIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesIO.swift; sourceTree = "<group>"; };
 		AE59A1AA2BE93CAA0027CAE9 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		AE59A1AC2BE94FCA0027CAE9 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
+		AE95F68D2BFCD676001F1585 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
+		AEB89E4E2BFE2B53003DF842 /* ApplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyButton.swift; sourceTree = "<group>"; };
 		BDC55893A921306A6C48BCC1 /* Pods-Countries.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Countries.release.xcconfig"; path = "Target Support Files/Pods-Countries/Pods-Countries.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,12 +100,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AE2CC3742BFDFFFA00552337 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				AE2CC3752BFE001A00552337 /* TextFieldType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		AE31EDAE2BE781A60054FB86 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				AE31EDAF2BE7853E0054FB86 /* VisitButton.swift */,
 				AE59A1AC2BE94FCA0027CAE9 /* CountryView.swift */,
 				AE3402852BED0C3C00C3B9A2 /* SearchView.swift */,
+				AE95F68D2BFCD676001F1585 /* DateView.swift */,
+				AEB89E4E2BFE2B53003DF842 /* ApplyButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -134,6 +150,7 @@
 		AE3AEA0E2BE679EB00C2C6CC /* Countries */ = {
 			isa = PBXGroup;
 			children = (
+				AE2CC3742BFDFFFA00552337 /* Enums */,
 				AE576EBE2BEA9B5100B23FBD /* UseCase */,
 				AE576EBD2BEA9B4700B23FBD /* Models */,
 				AE31EDAE2BE781A60054FB86 /* UIComponents */,
@@ -387,15 +404,18 @@
 				AE3AEA342BE69C9400C2C6CC /* EditViewController.swift in Sources */,
 				AE3AEA322BE67D2F00C2C6CC /* R.generated.swift in Sources */,
 				AE53B4BE2BEF844E0083290D /* String+Extension.swift in Sources */,
+				AE2CC3762BFE001A00552337 /* TextFieldType.swift in Sources */,
 				AE576EC22BEA9B7400B23FBD /* CountryUseCase.swift in Sources */,
 				AE3AEA3C2BE6A3A600C2C6CC /* UIView+Extension.swift in Sources */,
 				AE3402862BED0C3C00C3B9A2 /* SearchView.swift in Sources */,
 				AE5867EF2BECDBA900F54295 /* CountriesViewModel.swift in Sources */,
 				AE3AEA2D2BE67ADA00C2C6CC /* Assembly.swift in Sources */,
+				AE95F68E2BFCD676001F1585 /* DateView.swift in Sources */,
 				AE2C92CF2BEDF434003667BE /* CountryTableViewCell.swift in Sources */,
 				AE3AEA142BE679EB00C2C6CC /* MainViewController.swift in Sources */,
 				AE3AEA392BE69DEC00C2C6CC /* EditViewModel.swift in Sources */,
 				AE3AEA102BE679EB00C2C6CC /* AppDelegate.swift in Sources */,
+				AEB89E4F2BFE2B53003DF842 /* ApplyButton.swift in Sources */,
 				AE3AEA122BE679EB00C2C6CC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

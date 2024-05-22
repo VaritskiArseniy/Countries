@@ -48,6 +48,4 @@ class CountryUseCaseImplementation: CountryUseCase {
     func fetchDefaultCountry() -> CountryModel {
         return .init(icon: R.image.israelImage(), name: "Israel")
     }
-    
-
 }

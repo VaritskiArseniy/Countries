@@ -11,6 +11,10 @@ protocol EditViewControllerInterface: AnyObject {
     
 }
 
+protocol EditViewControllerDelegate: AnyObject {
+    func setCountry(model: CountryModel)
+}
+
 class EditViewController: UIViewController {
     
     private let viewModel: EditViewModel
@@ -27,11 +31,10 @@ class EditViewController: UIViewController {
         static var dateImage = { R.image.dateImage() }
         static var countryText = { "Country" }
         static var dateText = { "Date (Optional)" }
+        static var applyButoon = { R.image.applyButton() }
     }
     
     private var country: CountryModel?
-    
-    var didSelectCountry: ((CountryModel) -> Void)?
     
     private lazy var cencelButton: UIButton = {
         let button = UIButton()
@@ -80,7 +83,7 @@ class EditViewController: UIViewController {
         return label
     }()
     
-    private lazy var countryView = CountryView()
+    private var countryView = CountryView()
     
     private lazy var dateImageView: UIImageView = {
         let imageView = UIImageView()
@@ -96,10 +99,38 @@ class EditViewController: UIViewController {
         return label
     }()
     
+    private lazy var dateStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 6
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
     
-    init(viewModel: EditViewModel, country: CountryModel) {
+    private lazy var dayView: DateView = {
+        let textField = DateView(type: .day)
+        return textField
+    }()
+    
+    private lazy var monthView: DateView = {
+        let textField = DateView(type: .month)
+        return textField
+    }()
+    
+    private lazy var yearView: DateView = {
+        let textField = DateView(type: .year)
+        return textField
+    }()
+    
+    private lazy var applyButton: ApplyButton = {
+        let button = ApplyButton()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cencelButtonPressed))
+        button.addGestureRecognizer(tapGesture)
+        return button
+    }()
+    
+    init(viewModel: EditViewModel) {
         self.viewModel = viewModel
-        self.country = country
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -115,6 +146,7 @@ class EditViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = Constants.backgroundColor()
+        dateStackView.addArrangedSubviews([dayView, monthView, yearView])
         view.addSubviews([
             cencelButton,
             titleLabel,
@@ -124,9 +156,12 @@ class EditViewController: UIViewController {
             countryTitleLabel,
             countryView,
             dateImageView,
-            dateTitleLabel
+            dateTitleLabel,
+            dateStackView,
+            applyButton
         ])
         setupCountryView()
+
     }
     
     private func setupConstraints() {
@@ -189,6 +224,37 @@ class EditViewController: UIViewController {
             $0.height.equalTo(30)
             $0.width.equalToSuperview().dividedBy(2)
         }
+        
+        dateStackView.snp.makeConstraints {
+            $0.top.equalTo(dateTitleLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(countryView)
+            $0.height.equalTo(58)
+        }
+        
+        yearView.snp.makeConstraints {
+            $0.width.equalTo(105)
+        }
+        
+        applyButton.snp.makeConstraints {
+            $0.top.equalTo(dateStackView.snp.bottom).offset(60)
+            $0.leading.equalToSuperview().offset(21)
+            $0.trailing.equalToSuperview().inset(21)
+            $0.height.equalTo(66)
+        }
+    }
+
+    private func setupCountryView() {
+        if country != nil {
+            countryView.configure(with: country!)
+        } else {
+            countryView.configure(with: viewModel.fetchDefault())
+        }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(countryPressed))
+        countryView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func countryPressed() {
+        viewModel.showCountries(from: self, delegate: self)
     }
     
     @objc
@@ -201,25 +267,18 @@ class EditViewController: UIViewController {
         visitedButton.isSelected = true
         wantVisitButton.isSelected = false
     }
+    
     @objc
     private func wantVisitButtonPressed() {
         visitedButton.isSelected = false
         wantVisitButton.isSelected = true
     }
-    
-    private func setupCountryView() {
-        if country != nil {
-            countryView.configure(with: country!)
-        } else {
-            countryView.configure(with: viewModel.fetchDefault())
-        }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(countryPressed))
-        countryView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func countryPressed() {
-        self.dismiss(animated: true)
-        viewModel.showCountries()
+}
+
+extension EditViewController: EditViewControllerDelegate {
+    func setCountry(model: CountryModel) {
+        country = model
+        setupCountryView()
     }
 }
 

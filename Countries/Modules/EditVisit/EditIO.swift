@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 
 protocol EditOutput: AnyObject {
-    func showCountries()
+    func showCountries(from viewController: UIViewController, delegate: EditViewControllerDelegate)
 }
 
 protocol EditInput: AnyObject {

@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 
 protocol EditViewModelInterface {
-    func showCountries()
+    func showCountries(from viewController: UIViewController, delegate: EditViewControllerDelegate)
 }
 
 class EditViewModel {
@@ -26,11 +27,10 @@ class EditViewModel {
     func fetchDefault() -> CountryModel{
         countryUseCase.fetchDefaultCountry()
     }
-
 }
 
 extension EditViewModel: EditViewModelInterface {
-    func showCountries() {
-        output?.showCountries()
+    func showCountries(from viewController: UIViewController, delegate: EditViewControllerDelegate) {
+        output?.showCountries(from: viewController, delegate: delegate)
     }
 }

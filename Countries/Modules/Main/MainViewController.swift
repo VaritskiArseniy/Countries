@@ -14,9 +14,9 @@ protocol MainViewControllerInterface: AnyObject {
 class MainViewController: UIViewController {
     
     private let viewModel: MainViewModel
-    
+                                                
     private enum Constants {
-        static var buttonText = { "Open BottomSeet" }
+        static var buttonText = { "Open BottomSheet" }
     }
     
     private lazy var openSheetButton: UIButton = {

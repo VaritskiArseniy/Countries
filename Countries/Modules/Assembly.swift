@@ -23,15 +23,15 @@ final class Assembly {
     
     func makeEdit(output: EditOutput) -> UIViewController {
         let viewModel = EditViewModel(output: output, countryUseCase: countryUseCase)
-        let view = EditViewController(viewModel: viewModel, country: CountryModel.init(icon: R.image.israelImage(), name: "Israel"))
+        let view = EditViewController(viewModel: viewModel)
         viewModel.view = view
         return view
     }
     
-    func makeCountries(output: CountriesOutput) -> UIViewController {
+    func makeCountries(output: CountriesOutput, delegate: EditViewControllerDelegate) -> UIViewController {
         let viewModel = CountriesViewModel(output: output, countryUseCase: countryUseCase)
         let view = CountriesViewController(viewModel: viewModel)
-        viewModel.view = view
+        view.editDelegate = delegate
         return view
     }
 }

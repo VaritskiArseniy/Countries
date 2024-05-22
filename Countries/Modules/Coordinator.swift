@@ -31,19 +31,26 @@ extension Coordinator: MainOutput {
         
         let sheetPresentationController = editView.presentationController as? UISheetPresentationController
         
+         let mediumId = UISheetPresentationController.Detent.Identifier("medium")
+         
+         let customMediumDetent = UISheetPresentationController.Detent.custom(identifier: mediumId) { context in
+             return 560
+         }
+        
         sheetPresentationController?.preferredCornerRadius = 10
-        sheetPresentationController?.detents = [.medium()]
+        sheetPresentationController?.detents = [customMediumDetent, .large()]
         sheetPresentationController?.prefersGrabberVisible = false
-        sheetPresentationController?.prefersScrollingExpandsWhenScrolledToEdge = false
+        sheetPresentationController?.prefersScrollingExpandsWhenScrolledToEdge = true
         
         navigationController.present(editView, animated: true, completion: nil)
     }
 }
 
-extension Coordinator: EditOutput { 
-    func showCountries() {
-        let countriesView = assembly.makeCountries(output: self)
-        navigationController.pushViewController(countriesView, animated: true)
+extension Coordinator: EditOutput {
+    func showCountries(from viewController: UIViewController, delegate: EditViewControllerDelegate) {
+        let countriesView = assembly.makeCountries(output: self, delegate: delegate)
+        countriesView.modalPresentationStyle = .fullScreen
+        viewController.present(countriesView, animated: true)
     }
     
 }

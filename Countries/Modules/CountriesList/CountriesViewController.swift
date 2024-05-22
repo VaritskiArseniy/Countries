@@ -23,6 +23,8 @@ class CountriesViewController: UIViewController {
     
     var searchActive : Bool = false
     
+    weak var editDelegate: EditViewControllerDelegate?
+    
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.backgroundImage()
@@ -42,13 +44,13 @@ class CountriesViewController: UIViewController {
         return scrollView
     }()
     
-    private lazy var searchView = SearchView()
+    private var searchView = SearchView()
     
-    lazy var filteredData: [CountryModel] = []
+    var filteredData: [CountryModel] = []
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
-        tableView.rowHeight = 58
+        tableView.rowHeight = 68
         tableView.backgroundColor = .clear
         
         tableView.register(
@@ -78,8 +80,7 @@ class CountriesViewController: UIViewController {
     
     private func setupUI() {
         view.addSubviews([backgroundImageView, scrollView])
-        scrollView.addSubviews([searchView, tableView])
-        setupNavigationBar()
+        scrollView.addSubviews([backButton, searchView, tableView])
         endEditingSearchBar()
         searchView.searchTextField.addTarget(self, action: #selector(searchTextChanged(_:)), for: .editingChanged)
     }
@@ -90,14 +91,20 @@ class CountriesViewController: UIViewController {
         }
         
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        backButton.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(21)
+            $0.width.height.equalTo(40)
         }
         
         searchView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(view.bounds.width - 42)
-            $0.top.equalToSuperview().offset(20)
+            $0.width.equalToSuperview().dividedBy(1.1)
+            $0.top.equalTo(backButton.snp.bottom).offset(34)
             $0.height.equalTo(58)
         }
         
@@ -110,40 +117,10 @@ class CountriesViewController: UIViewController {
         }
     }
     
-    private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-    }
-    
-    @objc private func backButtonPressed() {
-        navigationController?.popViewController(animated: true)
-    }
-    
     private func endEditingSearchBar() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOutsiteKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc
-    private func tapOutsiteKeyboard() {
-        searchView.searchTextField.resignFirstResponder()
-    }
-    
-    @objc private func searchTextChanged(_ textField: UITextField) {
-        let searchText = textField.text ?? ""
-        filteredData = viewModel.filterCountries(searchText: searchText)
-        if !searchText.isEmpty {
-            searchActive = true
-        } else {
-            searchActive = false
-            filteredData.removeAll()
-        }
-        print(searchText)
-        print(filteredData)
-        tableView.reloadData()
-        tableView.snp.updateConstraints {
-            $0.height.equalTo(calculatedHeight())
-        }
     }
     
     private func calculatedHeight() -> Int {
@@ -160,19 +137,29 @@ class CountriesViewController: UIViewController {
         return height
     }
     
-    private func showEditViewController(for country: CountryModel) {
-        let editViewModel = EditViewModel(countryUseCase: viewModel.countryUseCase)
-        let editViewController = EditViewController(viewModel: editViewModel, country: country)
-        
-        let sheetPresentationController = editViewController.presentationController as? UISheetPresentationController
-        
-        sheetPresentationController?.preferredCornerRadius = 10
-        sheetPresentationController?.detents = [.medium()]
-        sheetPresentationController?.prefersGrabberVisible = false
-        sheetPresentationController?.prefersScrollingExpandsWhenScrolledToEdge = false
-        navigationController?.present(editViewController, animated: true)
+    @objc private func backButtonPressed() {
+        dismiss(animated: true)
     }
     
+    @objc
+    private func tapOutsiteKeyboard() {
+        searchView.searchTextField.resignFirstResponder()
+    }
+    
+    @objc private func searchTextChanged(_ textField: UITextField) {
+        let searchText = textField.text ?? ""
+        filteredData = viewModel.filterCountries(searchText: searchText)
+        if !searchText.isEmpty {
+            searchActive = true
+        } else {
+            searchActive = false
+            filteredData.removeAll()
+        }
+        tableView.reloadData()
+        tableView.snp.updateConstraints {
+            $0.height.equalTo(calculatedHeight())
+        }
+    }
 }
 
 extension CountriesViewController: UITableViewDelegate {
@@ -181,25 +168,21 @@ extension CountriesViewController: UITableViewDelegate {
         tableView.reloadRows(at: indexesToRedraw, with: .fade)
         var selectedCountry: CountryModel
         if searchActive {
-            selectedCountry = filteredData[indexPath.section]
+            selectedCountry = filteredData[indexPath.row]
         } else {
-            selectedCountry = viewModel.fetchCountries()[indexPath.section]
+            selectedCountry = viewModel.fetchCountries()[indexPath.row]
         }
-        showEditViewController(for: selectedCountry)
-        navigationController?.popViewController(animated: true)
+        editDelegate?.setCountry(model: selectedCountry)
+        
+        dismiss(animated: true)
     }
 }
 
 extension CountriesViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard searchActive else { return viewModel.fetchCountries().count}
         return filteredData.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -208,10 +191,10 @@ extension CountriesViewController: UITableViewDataSource {
         else { return UITableViewCell() }
         
         if searchActive {
-            let country = filteredData[indexPath.section]
+            let country = filteredData[indexPath.row]
             cell.configure(with: country)
         } else {
-            let country = viewModel.fetchCountries()[indexPath.section]
+            let country = viewModel.fetchCountries()[indexPath.row]
             cell.configure(with: country)
         }
         return cell
