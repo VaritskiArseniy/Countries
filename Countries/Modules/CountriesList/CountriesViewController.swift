@@ -31,17 +31,17 @@ class CountriesViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var backgroundHeader: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Constants.backgroundImage()
+        return imageView
+    }()
+    
     private lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(Constants.cencelIcon(), for: .normal)
         button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         return button
-    }()
-    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .clear
-        return scrollView
     }()
     
     private var searchView = SearchView()
@@ -57,7 +57,7 @@ class CountriesViewController: UIViewController {
             CountryTableViewCell.self,
             forCellReuseIdentifier: Constants.cellIdentifier()
         )
-        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = true
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -79,8 +79,7 @@ class CountriesViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.addSubviews([backgroundImageView, scrollView])
-        scrollView.addSubviews([backButton, searchView, tableView])
+        view.addSubviews([backgroundImageView, backButton, searchView, tableView])
         endEditingSearchBar()
         searchView.searchTextField.addTarget(self, action: #selector(searchTextChanged(_:)), for: .editingChanged)
     }
@@ -90,13 +89,8 @@ class CountriesViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        scrollView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
         backButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview().offset(21)
             $0.width.height.equalTo(40)
         }
@@ -110,10 +104,9 @@ class CountriesViewController: UIViewController {
         
         tableView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(view.bounds.width - 42)
+            $0.width.equalTo(view.bounds.width)
             $0.top.equalTo(searchView.snp.bottom).offset(30)
-            $0.height.equalTo(calculatedHeight())
-            $0.bottom.lessThanOrEqualToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -156,9 +149,6 @@ class CountriesViewController: UIViewController {
             filteredData.removeAll()
         }
         tableView.reloadData()
-        tableView.snp.updateConstraints {
-            $0.height.equalTo(calculatedHeight())
-        }
     }
 }
 
@@ -175,6 +165,7 @@ extension CountriesViewController: UITableViewDelegate {
         editDelegate?.setCountry(model: selectedCountry)
         
         dismiss(animated: true)
+        
     }
 }
 

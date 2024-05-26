@@ -62,10 +62,12 @@ class CountryTableViewCell: UITableViewCell {
     
     private func setup() {
         backgroundColor = .clear
-        contentView.addSubviews([backView, flagImageView, nameLabel])
+        backView.addSubviews([flagImageView, nameLabel])
+        contentView.addSubviews([backView])
         
         backView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalToSuperview().offset(21)
+            $0.trailing.equalToSuperview().inset(21)
             $0.top.bottom.equalToSuperview().inset(8)
         }
         

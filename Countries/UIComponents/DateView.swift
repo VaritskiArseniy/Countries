@@ -14,15 +14,34 @@ class DateView: UIView {
         static var white = { R.color.cFEFFFF() }
         static var backgroundColor = { R.color.c121D36() }
         static var borderColor = { R.color.c20315A() }
+        static var toolbar = { R.color.c20315A() }
         static var arrowDownImage = { R.image.arrowDownImage() }
         static var black = { R.color.c000000() }
+        static var backgroundColorPicker = { R.color.c1A304D() }
     }
     
     private var type: TextFieldType
     
     private let days = Array(1...31)
     
-    private var selectedDay: Int?
+    private var selectedRow: String?
+    
+    private lazy var toolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.barTintColor = Constants.toolbar()
+        toolbar.tintColor = Constants.white()
+        toolbar.items = [cencelButton, flexSpace, doneButton]
+        return toolbar
+    }()
+    
+    private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
+    
+    private let cencelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cencelAction))
+    
+    private let flexSpace = UIBarButtonItem(
+        barButtonSystemItem: .flexibleSpace,
+        target: nil,
+        action: nil)
     
     private lazy var arrowImageView: UIImageView = {
         let imageView = UIImageView()
@@ -34,6 +53,7 @@ class DateView: UIView {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.backgroundColor = Constants.backgroundColorPicker()
         return pickerView
     }()
     
@@ -86,6 +106,21 @@ class DateView: UIView {
             $0.height.equalTo(22)
             $0.width.equalToSuperview().dividedBy(2)
         }
+        
+        toolbar.sizeToFit()
+    }
+    
+    @objc
+    private func doneAction() {
+        if selectedRow?.isEmpty == false {
+            dateTextField.text = selectedRow
+        }
+        dateTextField.resignFirstResponder()
+    }
+    
+    @objc
+    private func cencelAction() {
+        dateTextField.resignFirstResponder()
     }
 }
 
@@ -97,27 +132,35 @@ extension DateView: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String) -> Bool {
             return false
+            toolbar.items = [flexSpace, doneButton]
+            textField.inputAccessoryView = toolbar
             
         }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
         textField.inputView = datePickerView
-        
+        textField.inputAccessoryView = toolbar
     }
 }
 
 
 extension DateView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        dateTextField.text = type.array[row]
-        
-        self.endEditing(true)
+        selectedRow = type.array[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return type.array[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var label = UILabel()
+        label.font = .systemFont(ofSize: 20)
+        label.textColor = Constants.white()
+        label.textAlignment = .center
+        label.text = type.array[row]
+        return label
     }
 }
 

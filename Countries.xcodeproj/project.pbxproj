@@ -10,6 +10,7 @@
 		8FE3676360B5DBDAEDB1CE2B /* Pods_Countries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550235D28C3DB32955E2FFB9 /* Pods_Countries.framework */; };
 		AE2C92CF2BEDF434003667BE /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2C92CE2BEDF434003667BE /* CountryTableViewCell.swift */; };
 		AE2CC3762BFE001A00552337 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC3752BFE001A00552337 /* TextFieldType.swift */; };
+		AE2FD7242C03432900D3EEDA /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE2FD7232C03432900D3EEDA /* Colors.xcassets */; };
 		AE31EDB02BE7853E0054FB86 /* VisitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE31EDAF2BE7853E0054FB86 /* VisitButton.swift */; };
 		AE31EDB32BE78F040054FB86 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE31EDB22BE78F040054FB86 /* Poppins-Bold.ttf */; };
 		AE3402862BED0C3C00C3B9A2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3402852BED0C3C00C3B9A2 /* SearchView.swift */; };
@@ -22,7 +23,6 @@
 		AE3AEA282BE67A8B00C2C6CC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEA272BE67A8B00C2C6CC /* MainViewModel.swift */; };
 		AE3AEA2B2BE67ABE00C2C6CC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEA2A2BE67ABE00C2C6CC /* Coordinator.swift */; };
 		AE3AEA2D2BE67ADA00C2C6CC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEA2C2BE67ADA00C2C6CC /* Assembly.swift */; };
-		AE3AEA302BE67C5300C2C6CC /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEA2F2BE67C5300C2C6CC /* Colors.xcassets */; };
 		AE3AEA322BE67D2F00C2C6CC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEA312BE67D2F00C2C6CC /* R.generated.swift */; };
 		AE3AEA342BE69C9400C2C6CC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEA332BE69C9400C2C6CC /* EditViewController.swift */; };
 		AE3AEA372BE69DB200C2C6CC /* EditIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEA362BE69DB200C2C6CC /* EditIO.swift */; };
@@ -46,6 +46,7 @@
 		550235D28C3DB32955E2FFB9 /* Pods_Countries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Countries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2C92CE2BEDF434003667BE /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 		AE2CC3752BFE001A00552337 /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
+		AE2FD7232C03432900D3EEDA /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AE31EDAF2BE7853E0054FB86 /* VisitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitButton.swift; sourceTree = "<group>"; };
 		AE31EDB22BE78F040054FB86 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		AE3402852BED0C3C00C3B9A2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -60,7 +61,6 @@
 		AE3AEA272BE67A8B00C2C6CC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		AE3AEA2A2BE67ABE00C2C6CC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		AE3AEA2C2BE67ADA00C2C6CC /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
-		AE3AEA2F2BE67C5300C2C6CC /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AE3AEA312BE67D2F00C2C6CC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		AE3AEA332BE69C9400C2C6CC /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		AE3AEA362BE69DB200C2C6CC /* EditIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIO.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 				AE3AEA312BE67D2F00C2C6CC /* R.generated.swift */,
 				AE3AEA1A2BE679EC00C2C6CC /* LaunchScreen.storyboard */,
 				AE3AEA182BE679EC00C2C6CC /* Assets.xcassets */,
-				AE3AEA2F2BE67C5300C2C6CC /* Colors.xcassets */,
+				AE2FD7232C03432900D3EEDA /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -315,7 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE3AEA302BE67C5300C2C6CC /* Colors.xcassets in Resources */,
+				AE2FD7242C03432900D3EEDA /* Colors.xcassets in Resources */,
 				AE3AEA1C2BE679EC00C2C6CC /* LaunchScreen.storyboard in Resources */,
 				AE3AEA192BE679EC00C2C6CC /* Assets.xcassets in Resources */,
 				AE31EDB32BE78F040054FB86 /* Poppins-Bold.ttf in Resources */,
