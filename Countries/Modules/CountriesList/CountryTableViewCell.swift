@@ -74,7 +74,7 @@ class CountryTableViewCell: UITableViewCell {
         flagImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(18)
-            $0.height.width.equalTo(24)
+            $0.size.equalTo(24)
         }
         
         nameLabel.snp.makeConstraints {

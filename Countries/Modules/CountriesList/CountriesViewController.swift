@@ -92,7 +92,7 @@ class CountriesViewController: UIViewController {
         backButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview().offset(21)
-            $0.width.height.equalTo(40)
+            $0.size.equalTo(40)
         }
         
         searchView.snp.makeConstraints {
@@ -103,10 +103,9 @@ class CountriesViewController: UIViewController {
         }
         
         tableView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.centerX.bottom.equalToSuperview()
             $0.width.equalTo(view.bounds.width)
             $0.top.equalTo(searchView.snp.bottom).offset(30)
-            $0.bottom.equalToSuperview()
         }
     }
     
@@ -114,20 +113,6 @@ class CountriesViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOutsiteKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
-    }
-    
-    private func calculatedHeight() -> Int {
-        var count: Int
-        
-        if searchActive {
-            count = filteredData.count
-        } else {
-            count = viewModel.fetchCountries().count
-        }
-        
-        let height = 68 * count
-        
-        return height
     }
     
     @objc private func backButtonPressed() {
@@ -172,8 +157,7 @@ extension CountriesViewController: UITableViewDelegate {
 extension CountriesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard searchActive else { return viewModel.fetchCountries().count}
-        return filteredData.count
+        return searchActive ? filteredData.count : viewModel.fetchCountries().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -181,21 +165,11 @@ extension CountriesViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier(), for: indexPath) as? CountryTableViewCell
         else { return UITableViewCell() }
         
-        if searchActive {
-            let country = filteredData[indexPath.row]
-            cell.configure(with: country)
-        } else {
-            let country = viewModel.fetchCountries()[indexPath.row]
-            cell.configure(with: country)
-        }
+        let country = searchActive ? filteredData[indexPath.row] : viewModel.fetchCountries()[indexPath.row]
+        
+        cell.configure(with: country)
+        
         return cell
-    }
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return 10
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView(frame: .zero)
     }
 }
 
