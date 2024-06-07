@@ -215,7 +215,7 @@ class EditViewController: UIViewController {
         dateImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(21)
             $0.top.equalTo(countryView.snp.bottom).offset(27)
-            $0.width.height.equalTo(16)
+            $0.size.equalTo(16)
         }
         
         dateTitleLabel.snp.makeConstraints {
